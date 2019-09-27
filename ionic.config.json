@@ -1,5 +1,7 @@
 {
   "name": "Socializer",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
