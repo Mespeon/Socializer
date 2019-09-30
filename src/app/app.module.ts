@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook } from '@ionic-native/facebook';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,7 +33,8 @@ import { SocialshareProvider } from '../providers/socialshare/socialshare';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SocialshareProvider,
-    Facebook
+    Facebook,
+    SocialSharing
   ]
 })
 export class AppModule {}

@@ -11,8 +11,14 @@
   <div><span>Caption: {{ sampleCaption}}</span></div>
   <div><span>Description: {{ sampleDescription }}</span></div>
 
-  <button ion-button block>Share to Facebook</button>
-  <button ion-button block>Share to Instagram</button>
-  <button ion-button block>Share to Twitter</button>
-  <button ion-button block>Share via Email</button>
+  <button ion-button block rounded (click)="logintoFacebook()">Login to Facebook</button>
+  <button ion-button block rounded (click)="getFacebookStatus()">Get Facebook login status</button>
+  <button ion-button block (click)="shareToFacebook(null, null, samplePicUrl)">Share to Facebook</button>
+  <button ion-button block disabled>Share to Instagram</button>
+  <button ion-button block disabled>Share to Twitter</button>
+  <button ion-button block disabled>Share via Email</button>
+  <button ion-button block (click)="fbShareUsingSocialShare(samplePicUrl)">Share to Facebook using Social Share</button>
+  <button ion-button block (click)="igShareUsingSocialShare(samplePicUrl)">Share to Instagram using Social Share</button>
+  <button ion-button block (click)="twShareUsingSocialShare(samplePicUrl)">Share to Twitter using Social Share</button>
+  <button ion-button block (click)="emailShareUsingSocialShare(samplePicUrl)">Share to Email using Social Share</button>
 </ion-content>
