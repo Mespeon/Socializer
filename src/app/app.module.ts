@@ -12,6 +12,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SocialshareProvider } from '../providers/socialshare/socialshare';
 
+import { Caman } from 'caman';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -34,7 +36,8 @@ import { SocialshareProvider } from '../providers/socialshare/socialshare';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SocialshareProvider,
     Facebook,
-    SocialSharing
+    SocialSharing,
+    // Caman
   ]
 })
 export class AppModule {}
