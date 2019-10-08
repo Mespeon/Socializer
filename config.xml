@@ -103,4 +103,6 @@
         <variable name="APP_ID" value="395497861133171" />
         <variable name="APP_NAME" value="Socializer" />
     </plugin>
+    <plugin name="cordova-plugin-file" spec="~6.0.2" />
+    <plugin name="cordova-plugin-filepath" spec="~1.5.6" />
 </widget>

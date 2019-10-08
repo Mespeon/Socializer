@@ -4,6 +4,8 @@ import { Platform, ActionSheetController, LoadingController, ToastController } f
 
 import { SocialshareProvider } from './../../providers/socialshare/socialshare';
 
+import { FilenavPage } from './../filenav/filenav';
+
 // import { Caman } from 'caman';
 
 @Component({
@@ -15,8 +17,8 @@ export class HomePage {
   @ViewChild('myCanvas') private myCanvas: ElementRef;
 
   samplePicUrl = 'https://raw.githubusercontent.com/Mespeon/Sibyl-S2-Backend/master/psychopass/resources/cover/nozomi-cover.jpg';
-  // sampleSrc = "./../../assets/imgs/sagiri.jpeg";
-  sampleSrc = "./../../assets/imgs/fur.jpg";
+  sampleSrc = "./../../assets/imgs/sagiri.jpeg";
+  // sampleSrc = "./../../assets/imgs/fur.jpg";
   sampleCaption = 'Nozomi best gurl!';
   sampleDescription = 'Solche titten';
 
@@ -51,6 +53,10 @@ export class HomePage {
     //     // console.log(image, canvas);
     //   });
     // });
+  }
+
+  pushFilePage() {
+    this.navCtrl.push(FilenavPage);
   }
 
   filterMe() {
@@ -89,7 +95,8 @@ export class HomePage {
     /// replace image src
     imageElem.src = canvas.toDataURL('image/png');
 
-    this.downloadImage(canvas);
+    // this.downloadImage(canvas);
+    this.saveImage(canvas);
   }
 
   copySrcToCanvas() {
@@ -111,6 +118,7 @@ export class HomePage {
   }
 
   downloadImage(image) {
+    // Direct download
     var link = document.createElement('a');
     link.download = 'somephoto.png';
     link.href = image.toDataURL('image/png');
@@ -118,6 +126,62 @@ export class HomePage {
     console.log(link.download, link.href, image);
 
     link.click();
+  }
+
+  // Save image to storage
+  saveImage(image) {
+    var dataUrl = image.toDataURL();
+    console.log('Image canvas: ', image);
+    console.log('Image data: ', dataUrl);
+
+    let name = new Date().getTime() + '.png';
+    console.log('Filename: ', name);
+
+    // let path = this.file.dataDirectory;
+    // let options: IWriteOptions = { replace: true };
+
+    var data = dataUrl.split(',')[1];
+    let blob = this.b64toBlob(data, 'image/png');
+    console.log('Blob data: ', blob);
+
+    // var link = document.createElement('a');
+    // link.download = name;
+    // link.href = dataUrl;
+    // link.click();
+
+    // Write the file to storage
+    // this.file.writeFile(path, name, blob, options).then(response => {
+    //   // this.storeImage(name);
+    //   console.log('Saving file...');
+    // }).catch(ex => {
+    //   console.log('Error saving file: ', ex);
+    // });
+  }
+
+  b64toBlob(b64Data, contentType) {
+    contentType = contentType || '';
+    var sliceSize = 512;
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  }
+
+  storeImage() {
+
   }
 
   showToast(message) {

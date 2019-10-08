@@ -3,13 +3,21 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from "@angular/http";
 import { HttpClientModule } from '@angular/common/http';
+
+// Natives
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook } from '@ionic-native/facebook';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
 
+// Pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { FilenavPage } from '../pages/filenav/filenav';
+
+// Providers
 import { SocialshareProvider } from '../providers/socialshare/socialshare';
 
 import { Caman } from 'caman';
@@ -17,7 +25,8 @@ import { Caman } from 'caman';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    FilenavPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +37,8 @@ import { Caman } from 'caman';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    FilenavPage
   ],
   providers: [
     StatusBar,
@@ -37,6 +47,8 @@ import { Caman } from 'caman';
     SocialshareProvider,
     Facebook,
     SocialSharing,
+    File,
+    FilePath
     // Caman
   ]
 })
