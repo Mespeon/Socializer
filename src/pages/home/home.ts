@@ -27,7 +27,7 @@ export class HomePage {
 
   brightness: number = 0;
   contrast: number = 35;
-  unsharpMask: any = { radius: 100, strength: 2 };
+  unsharpMask: any = { radius: 0, strength: 0 };
   hue: number = 0;
   saturation: number = 35;
 
@@ -59,16 +59,19 @@ export class HomePage {
     this.navCtrl.push(FilenavPage);
   }
 
+  // Calls the filter function
   filterMe() {
     this.filter(this.myCanvas.nativeElement.src);
   }
 
+  // Reset the image in the canvas.
   restoreImage() {
     console.log('Clearing filters.');
     this.imageResult.nativeElement.src = this.image;
     this.myCanvas.nativeElement.src = this.image;
   }
 
+  // Apply the filter to the given image and then convert it to a canvas.
   filter(image) {
     console.log('Original image: ', this.image);
     /// Initialization of glfx.js
@@ -99,6 +102,7 @@ export class HomePage {
     this.saveImage(canvas);
   }
 
+  // This will copy the img src to the canvas.
   copySrcToCanvas() {
     this.image = this.imageResult.nativeElement.src;
     var imagery = this.imageResult.nativeElement;
@@ -144,12 +148,16 @@ export class HomePage {
     let blob = this.b64toBlob(data, 'image/png');
     console.log('Blob data: ', blob);
 
+    let params = { data: blob, filename: name };
+    this.navCtrl.push(FilenavPage, params);
+
     // var link = document.createElement('a');
     // link.download = name;
     // link.href = dataUrl;
     // link.click();
 
     // Write the file to storage
+    // MOVE THIS TO A SEPARATE CONTROLLER FOR NOW.
     // this.file.writeFile(path, name, blob, options).then(response => {
     //   // this.storeImage(name);
     //   console.log('Saving file...');
@@ -158,6 +166,8 @@ export class HomePage {
     // });
   }
 
+  // Converts the dataURL to a blob before being written into an actual file.
+  // This step is required, and is connected with the saveImage function.
   b64toBlob(b64Data, contentType) {
     contentType = contentType || '';
     var sliceSize = 512;

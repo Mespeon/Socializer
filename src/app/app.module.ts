@@ -20,7 +20,6 @@ import { FilenavPage } from '../pages/filenav/filenav';
 // Providers
 import { SocialshareProvider } from '../providers/socialshare/socialshare';
 
-import { Caman } from 'caman';
 
 @NgModule({
   declarations: [
