@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Platform, ActionSheetController, LoadingController, ToastController } from 'ionic-angular';
+import { Platform, ActionSheetController, LoadingController, ToastController, ModalController } from 'ionic-angular';
 
 import { SocialshareProvider } from './../../providers/socialshare/socialshare';
 
@@ -38,7 +38,8 @@ export class HomePage {
     public toasty: ToastController,
     public platform: Platform,
     public loadingCtrl: LoadingController,
-    public actionsheetCtrl: ActionSheetController
+    public actionsheetCtrl: ActionSheetController,
+    public modalCtrl: ModalController
   ) {
     this._zone = new NgZone({ enableLongStackTrace: false });
   }
@@ -55,8 +56,18 @@ export class HomePage {
     // });
   }
 
-  pushFilePage() {
-    this.navCtrl.push(FilenavPage);
+  // Used for file traversal
+  filepath: any;
+  async pushFilePage(params) {
+    let fileModal = await this.modalCtrl.create(FilenavPage, params);
+    fileModal.onWillDismiss(response => {
+      // This modal will return the local file path to the recently stored file.
+      // This path will be used to attach the image to the Social Sharing plugin.
+      console.log('Received from modal: ', response);
+      this.filepath = response['path']; // assign the path to a variable so it could be used by the social functions
+    });
+    await fileModal.present();
+    // this.navCtrl.push(FilenavPage);
   }
 
   // Calls the filter function
@@ -149,7 +160,8 @@ export class HomePage {
     console.log('Blob data: ', blob);
 
     let params = { data: blob, filename: name };
-    this.navCtrl.push(FilenavPage, params);
+    // this.navCtrl.push(FilenavPage, params);
+    this.pushFilePage(params);
 
     // var link = document.createElement('a');
     // link.download = name;
@@ -190,10 +202,6 @@ export class HomePage {
     return blob;
   }
 
-  storeImage() {
-
-  }
-
   showToast(message) {
     var options = {
       message: message,
@@ -203,6 +211,9 @@ export class HomePage {
     this.toasty.create(options).present();
   }
 
+  // SOCIAL
+  // SHARING
+  // FUNCTIONS
   async getFacebookStatus() {
     await this.socialProvider.getFacebookStatus().then(response => {
       console.log('Facebook status: ', response);

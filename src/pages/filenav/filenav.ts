@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ViewController } from 'ionic-angular';
 
 import { File, IWriteOptions } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
@@ -16,6 +16,7 @@ export class FilenavPage {
   constructor(
     public platform: Platform,
     public navCtrl: NavController,
+    public viewCtrl: ViewController,
     public navParams: NavParams,
     private file: File,
     private filePath: FilePath
@@ -124,8 +125,15 @@ export class FilenavPage {
       console.log('File name: ', response['name']);
       console.log('File full path: ', response['fullPath']);
       console.log('File native URL: ', response['nativeURL']);
+      this.dismiss(response['nativeURL']);
     }).catch(ex => {
       console.log('Error saving file: ', ex);
     });
+  }
+
+  // Dismiss this modal along with the path of the saved file.
+  dismiss(pathToSend) {
+    let paramReturn = { path: pathToSend };
+    this.viewCtrl.dismiss(paramReturn);
   }
 }

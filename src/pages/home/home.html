@@ -9,13 +9,13 @@
 <ion-content padding>
   <!-- <img id="image" [src]="sampleSrc"/> -->
   <img [src]="sampleSrc" #imageResult />
-  <canvas #myCanvas id="myCanvas"></canvas>
+  <canvas #myCanvas id="myCanvas" style="display: none;"></canvas>
 
   <!-- <div><span>Caption: {{ sampleCaption}}</span></div>
   <div><span>Description: {{ sampleDescription }}</span></div> -->
 
   <ion-label>GLFXJS Experimental</ion-label>
-  <ion-list>
+  <ion-list [hidden]="filepath != null">
     <ion-list-header>
     Adjust Image Filters
     </ion-list-header>
@@ -78,12 +78,12 @@
   <ion-label>Social Sharing</ion-label>
   <button ion-button block rounded (click)="logintoFacebook()">Login to Facebook</button>
   <button ion-button block rounded (click)="getFacebookStatus()">Get Facebook login status</button>
-  <button ion-button block (click)="shareToFacebook(null, null, samplePicUrl)">Share to Facebook</button>
+  <button ion-button block (click)="shareToFacebook(null, null, filepath)">Share to Facebook</button>
   <button ion-button block disabled>Share to Instagram</button>
   <button ion-button block disabled>Share to Twitter</button>
   <button ion-button block disabled>Share via Email</button>
-  <button ion-button block (click)="fbShareUsingSocialShare(samplePicUrl)">Share to Facebook using Social Share</button>
-  <button ion-button block (click)="igShareUsingSocialShare(samplePicUrl)">Share to Instagram using Social Share</button>
-  <button ion-button block (click)="twShareUsingSocialShare(samplePicUrl)">Share to Twitter using Social Share</button>
-  <button ion-button block (click)="emailShareUsingSocialShare(samplePicUrl)">Share to Email using Social Share</button>
+  <button ion-button block (click)="fbShareUsingSocialShare(filepath)">Share to Facebook using Social Share</button>
+  <button ion-button block (click)="igShareUsingSocialShare(filepath)">Share to Instagram using Social Share</button>
+  <button ion-button block (click)="twShareUsingSocialShare(filepath)">Share to Twitter using Social Share</button>
+  <button ion-button block (click)="emailShareUsingSocialShare(filepath)">Share to Email using Social Share</button>
 </ion-content>

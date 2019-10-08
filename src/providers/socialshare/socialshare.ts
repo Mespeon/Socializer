@@ -41,11 +41,8 @@ export class SocialshareProvider {
     console.log('URL for image to be sent: ', pict);
     await this.facebook.showDialog({
       method: 'share',
-      href: pict,
       picture: pict,
-      message: 'Test photo post',
-      caption: caption,
-      description: desc,
+      href: '',
     }).then(response => {
       console.log('Successfully shared: ', response);
     }).catch(ex => {
