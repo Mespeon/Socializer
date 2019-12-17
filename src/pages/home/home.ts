@@ -6,15 +6,20 @@ import { SocialshareProvider } from './../../providers/socialshare/socialshare';
 
 import { FilenavPage } from './../filenav/filenav';
 
-// import { Caman } from 'caman';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  @ViewChild('imageResult') private imageResult: ElementRef; // reference to DOM element
-  @ViewChild('myCanvas') private myCanvas: ElementRef;
+  // @ViewChild('imageResult') private imageResult: ElementRef; // reference to DOM element
+  // @ViewChild('myCanvas') private myCanvas: ElementRef;
+  @ViewChild(ImageCropperComponent) imageCropper: ImageCropperComponent;
+
+  // FOR NGX-CROPPER
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   samplePicUrl = 'https://raw.githubusercontent.com/Mespeon/Sibyl-S2-Backend/master/psychopass/resources/cover/nozomi-cover.jpg';
   sampleSrc = "./../../assets/imgs/sagiri.jpeg";
@@ -279,4 +284,34 @@ export class HomePage {
       console.log(ex);
     });
   }
+
+  // NGX-CROPPER
+  fileChangeEvent(event: any): void {
+    console.log('File changed.');
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    let dataUrlSplit = this.croppedImage.split(',')[1];
+    let blobMeUp = this.b64toBlob(dataUrlSplit, 'image/png');
+    console.log(blobMeUp);
+  }
+
+  imageLoaded() {
+    console.log('Image loaded.');
+  }
+
+  cropperReady() {
+    console.log('Cropper ready.');
+  }
+
+  loadImageFailed() {
+    console.log('Load image failed.');
+  }
+
+  rotateMe() {
+    this.imageCropper.rotateRight();
+  }
+
 }

@@ -8,13 +8,30 @@
 
 <ion-content padding>
   <!-- <img id="image" [src]="sampleSrc"/> -->
-  <img [src]="sampleSrc" #imageResult />
-  <canvas #myCanvas id="myCanvas" style="display: none;"></canvas>
+  <!-- <img [src]="sampleSrc" #imageResult />
+  <canvas #myCanvas id="myCanvas" style="display: none;"></canvas> -->
+
+  <input type="file" (change)="fileChangeEvent($event)" />
+  <image-cropper #imageCropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="4 / 3"
+      [resizeToWidth]="128"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+  ></image-cropper>
+
+  <img [src]="croppedImage"/>
+
+  <button ion-button small clear color="primary" (tap)="rotateMe()">Rotate</button>
 
   <!-- <div><span>Caption: {{ sampleCaption}}</span></div>
   <div><span>Description: {{ sampleDescription }}</span></div> -->
 
-  <ion-label>GLFXJS Experimental</ion-label>
+  <!-- <ion-label>GLFXJS Experimental</ion-label>
   <ion-list [hidden]="filepath != null">
     <ion-list-header>
     Adjust Image Filters
@@ -85,5 +102,5 @@
   <button ion-button block (click)="fbShareUsingSocialShare(filepath)">Share to Facebook using Social Share</button>
   <button ion-button block (click)="igShareUsingSocialShare(filepath)">Share to Instagram using Social Share</button>
   <button ion-button block (click)="twShareUsingSocialShare(filepath)">Share to Twitter using Social Share</button>
-  <button ion-button block (click)="emailShareUsingSocialShare(filepath)">Share to Email using Social Share</button>
+  <button ion-button block (click)="emailShareUsingSocialShare(filepath)">Share to Email using Social Share</button> -->
 </ion-content>

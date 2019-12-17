@@ -16,28 +16,34 @@ import { FilePath } from '@ionic-native/file-path';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { FilenavPage } from '../pages/filenav/filenav';
+import { RotationPage } from '../pages/rotation/rotation';
 
 // Providers
 import { SocialshareProvider } from '../providers/socialshare/socialshare';
 
+// Modules
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    FilenavPage
+    FilenavPage,
+    RotationPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
     HttpClientModule,
+    ImageCropperModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    FilenavPage
+    FilenavPage,
+    RotationPage
   ],
   providers: [
     StatusBar,
@@ -48,7 +54,6 @@ import { SocialshareProvider } from '../providers/socialshare/socialshare';
     SocialSharing,
     File,
     FilePath
-    // Caman
   ]
 })
 export class AppModule {}
